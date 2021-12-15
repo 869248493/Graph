@@ -6,28 +6,47 @@ class DirectedEdge:
         self.v_from = v_from
         self.v_to = v_to
         self.weight = weight
+        self.classification = "None"
 
     def get_weight(self):
         return self.weight
 
+    def get_classification(self):
+        return self.classification
+
+    def set_classification(self, classification):
+        self.classification = classification
+
 
 class Vertex:
-    def __init__(self, name=None):
+    def __init__(self, v_id=None):
         self.neighbours = []
-        self.name = name
+        self.id = v_id
         self.edges = []
 
     def __str__(self):
         res = ""
         for edge in self.edges:
-            res += f"\n   {edge.get_weight()}\n{self.get_name()} ->- {edge.v_to.get_name()}"
+            res += f"\n   {edge.get_weight()}\n{self.get_id()} ->- {edge.v_to.get_id()}"
         return res
 
-    def get_name(self):
-        return self.name
+    def get_id(self):
+        return self.id
 
-    def set_name(self, name):
-        self.name = name
+    def get_neighbours(self):
+        return self.neighbours
+
+    def get_edges(self):
+        return self.edges
+
+    def set_id(self, id):
+        self.id = id
+
+    def set_edges(self, edge_list):
+        self.edges = edge_list
+
+    def set_neighbours(self, neighbour_list):
+        self.neighbours = neighbour_list
 
     def add_edge(self, edge):
         self.edges.append(edge)
@@ -62,14 +81,14 @@ class Graph:
     def print_graph(self):
         print("------------------------")
         for vertex in self.vertices:
-            print(f"Vertex {vertex.get_name()}:\n{vertex}")
+            print(f"Vertex {vertex.get_id()}:\n{vertex}")
             print("------------------------")
 
     def generate_random_DAG(self, no_vertices, max_weight=10, max_neighbours=3):
         # Generate some vertices
         for i in range(no_vertices):
             vertex = Vertex()
-            vertex.name = f'V{i}'
+            vertex.id = f'V{i}'
             self.vertices.append(vertex)
 
         # Link vertices

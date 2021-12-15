@@ -1,5 +1,6 @@
 from Graph import *
-import BFS, DFS
+from BFS import *
+from DFS import *
 
 if __name__ == '__main__':
     s = Vertex('s')
@@ -18,5 +19,17 @@ if __name__ == '__main__':
     g.set_directed_edges(b, c, 1)
     g.set_directed_edges(c, d, 1)
     g.set_directed_edges(d, b, 1)
-    # g.print_graph()
-    print(BFS.bfs(v_list))
+
+    print("----------------------------------------Graph----------------------------------------")
+    g.print_graph()
+    print("----------------------------------------BFS----------------------------------------")
+    bfs = BFS(g)
+    bfs.bfs_construct(s)
+    print(bfs.get_vertex_list())
+    print(bfs.get_bfs_string())
+
+    print("----------------------------------------DFS----------------------------------------")
+    dfs = DFS(g)
+    dfs.dfs_construct()
+    print(dfs.get_vertex_list())
+    print(dfs.get_dfs_string())

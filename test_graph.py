@@ -1,6 +1,7 @@
 import unittest
 from Graph import *
-import BFS, DFS, Edge_Classification
+from DFS import *
+from BFS import *
 
 
 class TestGraph(unittest.TestCase):
@@ -50,44 +51,53 @@ class TestGraph(unittest.TestCase):
 
     def test_bfs(self):
         self.setEdges("bfs")
-        bfs = BFS.bfs(self.g.get_vertex_list())
+        bfs = BFS(self.g)
+        bfs.bfs_construct(self.s)
+        bfs_list = bfs.get_vertex_list()
 
         expected_list = ['s', 'a', 'b', 'c', 'e']
-        self.assertEqual(expected_list, bfs)
+        self.assertEqual(expected_list, bfs_list)
 
     def test_dfs_visit(self):
         self.setEdges("dfs_strong_connection")
-        dfs_dict = {}
-        dfs = DFS.dict_keys_to_list(DFS.dfs_visit(self.s, dfs_dict))
+        dfs = DFS(self.g)
+        dfs.dfs_visit(self.s)
+        dfs_list = dfs.get_vertex_list()
         expected_list = ['s', 'a', 'b', 'c', 'd', 'e']
-        self.assertEqual(expected_list, dfs)
+        self.assertEqual(expected_list, dfs_list)
 
     def test_dfs_visit_2(self):
         self.setEdges("dfs_isolate_vertex")
-        dfs_dict = {}
-        dfs = DFS.dict_keys_to_list(DFS.dfs_visit(self.s, dfs_dict))
+        dfs = DFS(self.g)
+        dfs.dfs_visit(self.s)
+        dfs_list = dfs.get_vertex_list()
         expected_list = ['s', 'a', 'b', 'c', 'd']
-        self.assertEqual(expected_list, dfs)
+        self.assertEqual(expected_list, dfs_list)
 
     def test_iterative_dfs_visit(self):
         self.setEdges("dfs_strong_connection")
-        dfs = DFS.dict_keys_to_list(DFS.dfs_visit_iterative(self.s))
+        dfs = DFS(self.g)
+        dfs.dfs_visit_iterative(self.s)
+        dfs_list = dfs.get_vertex_list()
         expected_list = ['s', 'a', 'b', 'c', 'd', 'e']
-        self.assertEqual(expected_list, dfs)
+        self.assertEqual(expected_list, dfs_list)
 
     def test_iterative_dfs_visit_2(self):
         self.setEdges("dfs_isolate_vertex")
-        dfs = DFS.dict_keys_to_list(DFS.dfs_visit_iterative(self.s))
+        dfs = DFS(self.g)
+        dfs.dfs_visit_iterative(self.s)
+        dfs_list = dfs.get_vertex_list()
         expected_list = ['s', 'a', 'b', 'c', 'd']
-        self.assertEqual(expected_list, dfs)
+        self.assertEqual(expected_list, dfs_list)
 
     def test_dfs(self):
         self.setEdges("dfs_isolate_vertex")
 
-        dfs = DFS.dfs(self.g.get_vertex_list())
-
-        expected_list = ['s', 'a', 'b', 'c', 'd', 'e']
-        self.assertEqual(expected_list, dfs)
+        dfs = DFS(self.g)
+        dfs.dfs_construct()
+        dfs_list = dfs.get_vertex_list()
+        expected_list = ['s', 'a', 'b', 'c', 'd','e']
+        self.assertEqual(expected_list, dfs_list)
 
 
 if __name__ == '__main__':
